@@ -1,23 +1,22 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  final VoidCallback showLoginPage;
+  const SignUpPage({
+    Key? key,
+    required this.showLoginPage,
+  }) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
-  Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim());
-  }
+  final _confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
@@ -25,6 +24,25 @@ class _LoginPageState extends State<LoginPage> {
     _passwordController.dispose();
     // TODO: implement dispose
     super.dispose();
+  }
+
+  Future signUp() async {
+    if (passwordConfirmed()) {
+      final user = FirebaseAuth.instance;
+      await user.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+     
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Wrong Password")));
+    }
+  }
+
+  bool passwordConfirmed() {
+    return _passwordController.text.trim() ==
+        _confirmPasswordController.text.trim();
   }
 
   @override
@@ -69,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: GestureDetector(
-                    onTap: signIn,
+                    onTap: () {},
                     child: Container(
                       decoration: BoxDecoration(
                           color: Colors.grey[200],
@@ -96,11 +114,42 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: TextField(
+                        controller: _confirmPasswordController,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.deepPurple),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          fillColor: Colors.grey[200],
+                          filled: true,
+                          hintText: "Confirm Password",
+                        ),
+                        obscureText: true,
+                      ),
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 25),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: GestureDetector(
-                    onTap: signIn,
+                    onTap: signUp,
                     child: Container(
                       padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
@@ -109,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       child: const Center(
                         child: Text(
-                          "Sign In",
+                          "Sign Up",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -124,12 +173,15 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Not a member? "),
-                    Text(
-                      "Register Now",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue[600],
+                    const Text("Do you have an account? "),
+                    GestureDetector(
+                      onTap: widget.showLoginPage,
+                      child: Text(
+                        "Sign In",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue[600],
+                        ),
                       ),
                     )
                   ],
@@ -145,11 +197,6 @@ class _LoginPageState extends State<LoginPage> {
   Column header() {
     return Column(
       children: [
-        const Icon(
-          Icons.logo_dev,
-          size: 120,
-        ),
-        const SizedBox(height: 35),
         Text(
           "Hello Again!",
           style: GoogleFonts.bebasNeue(
@@ -158,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         const SizedBox(height: 10),
         const Text(
-          "Welcome back, you\'ve been missed!",
+          "Register below your details",
           style: TextStyle(
             fontSize: 20,
           ),
