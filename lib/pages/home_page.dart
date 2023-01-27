@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:practicefirebase/read_data/get_user_name.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,26 +12,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final user = FirebaseAuth.instance;
+  List<String> docIDs = [];
+
+  Future getDocId() async {
+    await FirebaseFirestore.instance.collection("users").get().then(
+          (snapshot) => snapshot.docs.forEach((document) {
+            docIDs.add(document.reference.id);
+          }),
+        );
+  }
 
   @override
   void initState() {
-    // if (user.currentUser!.emailVerified == false) {
-    //   user.currentUser?.sendEmailVerification();
-    //   showDialog(
-    //       context: context,
-    //       builder: (context) => AlertDialog(
-    //             content: Text(
-    //                 "You are not verified, please check your email to verify your account."),
-    //             actions: [
-    //               TextButton(
-    //                   onPressed: () {
-    //                     // Navigator.of(context).pop();
-    //                     user.signOut();
-    //                   },
-    //                   child: const Text("Close"))
-    //             ],
-    //           ));
-    // }
+    // getDocId();
     // TODO: implement initState
     super.initState();
   }
@@ -37,21 +32,40 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("Signed In as: ${user.currentUser?.email}"),
-          ElevatedButton(
-            child: const Text("Sign Out"),
-            onPressed: () {
-              setState(() {
+      appBar: AppBar(
+        title: Text(user.currentUser!.email.toString()),
+        actions: [
+          IconButton(
+              onPressed: () {
                 user.signOut();
-              });
-            },
-          ),
+              },
+              icon: const Icon(Icons.logout)),
         ],
-      )),
+      ),
+      body: SafeArea(
+        child: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: FutureBuilder(
+                future: getDocId(),
+                builder: (context, snapshot) {
+                  return ListView.builder(
+                    itemCount: docIDs.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: GetUserName(documentId: docIDs[index]),
+                        tileColor: Colors.grey[100],
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        )),
+      ),
     );
   }
 }

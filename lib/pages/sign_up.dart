@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +16,9 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final _emailController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _ageController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
@@ -22,6 +26,10 @@ class _SignUpPageState extends State<SignUpPage> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _ageController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
     // TODO: implement dispose
     super.dispose();
   }
@@ -29,15 +37,31 @@ class _SignUpPageState extends State<SignUpPage> {
   Future signUp() async {
     if (passwordConfirmed()) {
       final user = FirebaseAuth.instance;
-      await user.createUserWithEmailAndPassword(
+      await user
+          .createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
-      ).whenComplete(() => user.currentUser!.sendEmailVerification());
-     
+      )
+          .whenComplete(() {
+        user.currentUser!.sendEmailVerification();
+        Map<String, dynamic> userInfo = {
+          'uid': user.currentUser!.uid,
+          'firstName': _firstNameController.text.trim(),
+          'lastName': _lastNameController.text.trim(),
+          'email': _emailController.text.trim(),
+          'age': _ageController.text.trim(),
+        };
+        addUserInfo(userInfo);
+      });
     } else {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Wrong Password")));
     }
+  }
+
+  Future addUserInfo(Map<String, dynamic> userInfo) async {
+    await FirebaseFirestore.instance.collection("users").add(userInfo);
+    
   }
 
   bool passwordConfirmed() {
@@ -79,6 +103,87 @@ class _SignUpPageState extends State<SignUpPage> {
                         fillColor: Colors.grey[200],
                         filled: true,
                         hintText: "Email",
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(12)),
+                    child: TextField(
+                      controller: _firstNameController,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.deepPurple),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        fillColor: Colors.grey[200],
+                        filled: true,
+                        hintText: "First Name",
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(12)),
+                    child: TextField(
+                      controller: _lastNameController,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.deepPurple),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        fillColor: Colors.grey[200],
+                        filled: true,
+                        hintText: "Last Name",
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(12)),
+                    child: TextField(
+                      controller: _ageController,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.deepPurple),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        fillColor: Colors.grey[200],
+                        filled: true,
+                        hintText: "Age",
                       ),
                     ),
                   ),
@@ -205,7 +310,7 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         const SizedBox(height: 10),
         const Text(
-          "Register below your details",
+          "Register below with your details",
           style: TextStyle(
             fontSize: 20,
           ),
