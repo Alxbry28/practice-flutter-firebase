@@ -32,7 +32,7 @@ class _SignUpPageState extends State<SignUpPage> {
       await user.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
-      );
+      ).whenComplete(() => user.currentUser!.sendEmailVerification());
      
     } else {
       ScaffoldMessenger.of(context)
