@@ -22,9 +22,22 @@ class _HomePageState extends State<HomePage> {
         );
   }
 
+  Future getDocIdOrderedBy() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        // .orderBy("age", descending: false)
+        .orderBy("age", descending: true)
+        // .where("age", isLessThan: 22)
+        .get()
+        .then(
+          (snapshot) => snapshot.docs.forEach((document) {
+            docIDs.add(document.reference.id);
+          }),
+        );
+  }
+
   @override
   void initState() {
-    // getDocId();
     // TODO: implement initState
     super.initState();
   }
@@ -49,7 +62,8 @@ class _HomePageState extends State<HomePage> {
           children: [
             Expanded(
               child: FutureBuilder(
-                future: getDocId(),
+                // future: getDocId(),
+                future: getDocIdOrderedBy(),
                 builder: (context, snapshot) {
                   return ListView.builder(
                     itemCount: docIDs.length,

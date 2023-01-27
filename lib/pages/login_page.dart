@@ -19,6 +19,9 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
 
   Future signIn() async {
+    showDialog(
+        context: context,
+        builder: (context) => Center(child: CircularProgressIndicator()));
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text.trim(),
@@ -27,6 +30,10 @@ class _LoginPageState extends State<LoginPage> {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("This user is not exist in our database.")));
     }
+    finally{
+      Navigator.of(context).pop();
+    }
+ 
   }
 
   @override
