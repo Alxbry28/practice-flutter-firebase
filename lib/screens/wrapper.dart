@@ -15,10 +15,13 @@ class Wrapper extends StatelessWidget {
 
     if (user == null) {
       return Authenticate();
+    } else {
+       return Home();
+      // if (user.isEmailVerified!) {
+      //   return Home();
+      // } else {
+      //   return Authenticate();
+      // }
     }
-    else{
-      return Home();
-    }
-   
   }
 }
