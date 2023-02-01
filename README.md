@@ -1,3 +1,10 @@
+Tutorial Source: Net Ninja (Firebase)
+
+Practice on how to create an app with firebase
+
+
+tutorial 3# summary: Basic App Structure 
+
 # practicefirebase
 
 A new Flutter project.
