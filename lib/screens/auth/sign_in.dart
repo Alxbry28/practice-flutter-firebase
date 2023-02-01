@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:practicefirebase/services/auth.dart';
+import 'package:practicefirebase/shared/constants.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({
@@ -59,9 +60,8 @@ class _SignInState extends State<SignIn> {
                       email = value;
                     });
                   },
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "Email",
+                  decoration: textInputDecoration.copyWith(
+                    hintText: "Enter Email",
                     labelText: "Email",
                   ),
                 ),
@@ -82,11 +82,9 @@ class _SignInState extends State<SignIn> {
                       password = value;
                     });
                   },
-                  decoration: const InputDecoration(
-                    hintText: "Password",
-                    labelText: "Password",
-                    border: OutlineInputBorder(),
-                  ),
+                  decoration: textInputDecoration.copyWith(   
+                    hintText: "Enter Password",
+                    labelText: "Password",),
                 ),
                 const SizedBox(height: 10),
                 SizedBox(
@@ -105,7 +103,6 @@ class _SignInState extends State<SignIn> {
                         } else {
                           print("email: ${email} ; password: ${password} ;");
                         }
-                        
                       }
                     },
                     child: Text("Sign In"),
