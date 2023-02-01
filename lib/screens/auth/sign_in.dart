@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:practicefirebase/services/auth.dart';
 import 'package:practicefirebase/shared/constants.dart';
+import 'package:practicefirebase/shared/loading.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({
@@ -17,6 +18,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
+  bool loading = false;
 
   //text field state
   String? email = "";
@@ -25,7 +27,9 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    // return ? : ;
+
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
@@ -82,9 +86,10 @@ class _SignInState extends State<SignIn> {
                       password = value;
                     });
                   },
-                  decoration: textInputDecoration.copyWith(   
+                  decoration: textInputDecoration.copyWith(
                     hintText: "Enter Password",
-                    labelText: "Password",),
+                    labelText: "Password",
+                  ),
                 ),
                 const SizedBox(height: 10),
                 SizedBox(
@@ -92,6 +97,9 @@ class _SignInState extends State<SignIn> {
                   child: ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          loading = true;
+                        });
                         // _formKey.currentState!.save();
                         dynamic result = await _authService
                             .signInWithEmailAndPassword(email!, password!);
@@ -99,6 +107,7 @@ class _SignInState extends State<SignIn> {
                         if (result == null) {
                           setState(() {
                             error = "Could not sign in with the credentials";
+                            loading = false;
                           });
                         } else {
                           print("email: ${email} ; password: ${password} ;");
