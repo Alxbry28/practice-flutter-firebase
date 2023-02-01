@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:practicefirebase/services/auth.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+  const SignIn({
+    Key? key,
+    required this.toggleView,
+  }) : super(key: key);
+  final Function toggleView;
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -23,6 +28,14 @@ class _SignInState extends State<SignIn> {
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
         title: Text("Sign In to Brew Crew"),
+        actions: [
+          TextButton.icon(
+              onPressed: () {
+                widget.toggleView();
+              },
+              icon: Icon(Icons.person),
+              label: Text("Register"))
+        ],
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),

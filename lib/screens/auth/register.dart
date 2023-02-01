@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+
 import 'package:practicefirebase/services/auth.dart';
 
 class Register extends StatefulWidget {
-  const Register({super.key});
+  const Register({
+    Key? key,
+    required this.toggleView,
+  }) : super(key: key);
+  final Function toggleView;
 
   @override
   State<Register> createState() => _RegisterState();
 }
 
 class _RegisterState extends State<Register> {
- final AuthService _authService = AuthService();
+  final AuthService _authService = AuthService();
 
   //text field state
   String? email = "";
@@ -23,6 +28,10 @@ class _RegisterState extends State<Register> {
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
         title: Text("Sign Up to Brew Crew"),
+        actions: [TextButton.icon(onPressed: (){ 
+          widget.toggleView();
+
+        }, icon: Icon(Icons.person), label: Text("Sign In"))],
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
