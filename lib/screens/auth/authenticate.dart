@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practicefirebase/screens/auth/register.dart';
 import 'package:practicefirebase/screens/auth/sign_in.dart';
 
 class Authenticate extends StatefulWidget {
@@ -12,7 +13,8 @@ class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: SignIn(),
+      // child: SignIn(),
+      child: Register(),
     );
   }
 }
