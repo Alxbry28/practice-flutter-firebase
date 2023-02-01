@@ -11,9 +11,21 @@ class AuthService {
 
   //auth change user stream
   Stream<MyUser> get user {
+    
     return _auth
         .authStateChanges()
-        .map((User? user) => _userFromFirebaseUser(user!)!);
+        .map((User? user) {
+          if(user!.emailVerified){
+            return  _userFromFirebaseUser(user)!;
+          }
+          else{
+            user.sendEmailVerification();
+            _auth.signOut;
+            print("not verified;");
+            return _userFromFirebaseUser(null!)!;
+          }
+       
+        });
   }
 
   // sign in anonymous

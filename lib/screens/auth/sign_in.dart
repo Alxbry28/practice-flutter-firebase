@@ -95,7 +95,7 @@ class _SignInState extends State<SignIn> {
                         // _formKey.currentState!.save();
                         dynamic result = await _authService
                             .signInWithEmailAndPassword(email!, password!);
-
+        // result.is
                         if (result == null) {
                           setState(() {
                             error = "Could not sign in with the credentials";
