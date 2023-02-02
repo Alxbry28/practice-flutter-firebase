@@ -1,12 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:practicefirebase/models/user.dart';
+import 'package:practicefirebase/services/firestoredb.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //Create user obj based on FirebaseUser
   MyUser? _userFromFirebaseUser(User user) {
-    return user != null ? MyUser(uid: user.uid,isEmailVerified: user.emailVerified) : null;
+    return user != null
+        ? MyUser(uid: user.uid, isEmailVerified: user.emailVerified)
+        : null;
   }
 
   //auth change user stream
@@ -51,7 +54,11 @@ class AuthService {
         password: password,
       );
       User? firebaseUser = result.user;
-      return _userFromFirebaseUser(firebaseUser!);
+      //create a new document for the user with the uid
+      await FirestoreDBService(uid: firebaseUser!.uid)
+          .updateUserData("0", "new crew member", 100);
+
+      return _userFromFirebaseUser(firebaseUser);
     } catch (e) {
       print(e.toString());
       return null;
