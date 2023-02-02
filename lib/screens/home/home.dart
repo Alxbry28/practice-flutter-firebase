@@ -12,6 +12,18 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void _showSettingsPanel() {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+            child: Text("Bottom Sheet"),
+          );
+        },
+      );
+    }
+
     return StreamProvider<List<Brew>>.value(
       initialData: [],
       value: FirestoreDBService().brews,
@@ -22,6 +34,10 @@ class Home extends StatelessWidget {
           backgroundColor: Colors.brown[400],
           elevation: 0.0,
           actions: [
+            IconButton(
+              onPressed: () => _showSettingsPanel(),
+              icon: const Icon(Icons.settings),
+            ),
             IconButton(
               onPressed: () async {
                 await _auth.signout();
