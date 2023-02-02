@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:practicefirebase/shared/constants.dart';
 
@@ -15,7 +17,7 @@ class _SettingsFormState extends State<SettingsForm> {
   //formaa values
   String? _currentName;
   String? _currentSugars;
-  String? _currentStrength;
+  int? _currentStrength;
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +41,13 @@ class _SettingsFormState extends State<SettingsForm> {
           //Dropdown
           DropdownButtonFormField(
             value: _currentSugars ?? "0",
-            hint: Text("Select Sugar"),
-            items: sugars.map((sugar) => DropdownMenuItem(
-                  value: sugar,
-                  child: Text("$sugar sugars"),
-                )).toList(),
+            hint: const Text("Select Sugar"),
+            items: sugars
+                .map((sugar) => DropdownMenuItem(
+                      value: sugar,
+                      child: Text("$sugar sugars"),
+                    ))
+                .toList(),
             onChanged: (value) => setState(() {
               _currentSugars = value;
             }),
@@ -51,7 +55,17 @@ class _SettingsFormState extends State<SettingsForm> {
 
           //Slider
 
-
+          Slider(
+            value: (_currentStrength ?? 100).toDouble(),
+            activeColor: Colors.brown[_currentStrength ?? 100],
+            inactiveColor: Colors.brown[_currentStrength ?? 100],
+            min: 100,
+            max: 900,
+            divisions: 8,
+            onChanged: (value) => setState(() {
+              _currentStrength = value.round();
+            }),
+          ),
 
           //Update button
           ElevatedButton(
