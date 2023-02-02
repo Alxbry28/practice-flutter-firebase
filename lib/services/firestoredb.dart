@@ -19,4 +19,10 @@ class FirestoreDBService {
     };
     return await brewCollection.doc(uid).set(userData);
   }
+
+  //get brews stream
+  Stream<QuerySnapshot> get brews{
+    return brewCollection.snapshots();
+  }
+  
 }
