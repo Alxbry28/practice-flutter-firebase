@@ -54,7 +54,6 @@ class _SettingsFormState extends State<SettingsForm> {
           ),
 
           //Slider
-
           Slider(
             value: (_currentStrength ?? 100).toDouble(),
             activeColor: Colors.brown[_currentStrength ?? 100],
@@ -69,12 +68,14 @@ class _SettingsFormState extends State<SettingsForm> {
 
           //Update button
           ElevatedButton(
-              onPressed: () async {
-                print(_currentName);
-                print(_currentSugars);
-                print(_currentStrength);
-              },
-              child: const Text("Update"))
+            onPressed: () async {
+              print(_currentName);
+              print(_currentSugars);
+              print(_currentStrength);
+            },
+            child: const Text("Update"),
+          ),
+          
         ],
       ),
     );
