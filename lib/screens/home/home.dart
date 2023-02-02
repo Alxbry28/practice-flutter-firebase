@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:practicefirebase/models/brew.dart';
 import 'package:practicefirebase/screens/home/brew_list.dart';
 import 'package:practicefirebase/services/auth.dart';
 import 'package:practicefirebase/services/firestoredb.dart';
@@ -11,13 +12,13 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<QuerySnapshot?>.value(
-      initialData: null,
+    return StreamProvider<List<Brew>>.value(
+      initialData: [],
       value: FirestoreDBService().brews,
       child: Scaffold(
         backgroundColor: Colors.brown[50],
         appBar: AppBar(
-          title: Text("Brew Crew"),
+          title: const Text("Brew Crew"),
           backgroundColor: Colors.brown[400],
           elevation: 0.0,
           actions: [

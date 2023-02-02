@@ -1,4 +1,5 @@
 import "package:cloud_firestore/cloud_firestore.dart";
+import 'package:practicefirebase/models/brew.dart';
 
 class FirestoreDBService {
   String? uid;
@@ -20,9 +21,25 @@ class FirestoreDBService {
     return await brewCollection.doc(uid).set(userData);
   }
 
-  //get brews stream
-  Stream<QuerySnapshot> get brews{
-    return brewCollection.snapshots();
+  //brew list from snapshot
+  List<Brew> _brewListFromSnapShot(QuerySnapshot snapshot) {
+    return snapshot.docs
+        .map(
+          (doc) => Brew(
+            name: doc.get("name") ?? "",
+            strength: doc.get("strength") ?? "0",
+            sugars: doc.get("sugars") ?? 0,
+          ),
+        )
+        .toList();
   }
-  
+
+ Stream<List<Brew>> get brews {
+    return brewCollection.snapshots().map(_brewListFromSnapShot);
+  } 
+
+  //get brews stream
+  // Stream<QuerySnapshot> get brews {
+  //   return brewCollection.snapshots();
+  // }
 }
