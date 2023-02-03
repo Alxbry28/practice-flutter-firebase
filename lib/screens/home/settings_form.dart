@@ -29,7 +29,6 @@ class _SettingsFormState extends State<SettingsForm> {
     return StreamBuilder<UserData>(
         stream: FirestoreDBService(uid: user!.uid).userData,
         builder: (context, snapshot) {
-        
           if (!snapshot.hasData) {
             return const Loading();
           }
@@ -71,8 +70,10 @@ class _SettingsFormState extends State<SettingsForm> {
                 //Slider
                 Slider(
                   value: (_currentStrength ?? user_data.strength!).toDouble(),
-                  activeColor: Colors.brown[_currentStrength ?? user_data.strength!],
-                  inactiveColor: Colors.brown[_currentStrength ?? user_data.strength!],
+                  activeColor:
+                      Colors.brown[_currentStrength ?? user_data.strength!],
+                  inactiveColor:
+                      Colors.brown[_currentStrength ?? user_data.strength!],
                   min: 100,
                   max: 900,
                   divisions: 8,
@@ -84,9 +85,13 @@ class _SettingsFormState extends State<SettingsForm> {
                 //Update button
                 ElevatedButton(
                   onPressed: () async {
-                    print(_currentName);
-                    print(_currentSugars);
-                    print(_currentStrength);
+                    if (_formKey.currentState!.validate()) {
+                      await FirestoreDBService(uid: user.uid).updateUserData(
+                          _currentSugars ?? user_data.sugars!,
+                          _currentName ?? user_data.name!,
+                          _currentStrength ?? user_data.strength!);
+                      Navigator.pop(context);
+                    }
                   },
                   child: const Text("Update"),
                 ),
