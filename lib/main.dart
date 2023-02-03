@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:practicefirebase/models/user.dart';
+import 'package:practicefirebase/config/routes.dart';
 import 'package:practicefirebase/screens/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:practicefirebase/services/auth.dart';
@@ -23,7 +24,9 @@ class MyApp extends StatelessWidget {
       initialData: null,
       value: AuthService().user,
       child: MaterialApp(
-        home: Wrapper(),
+        // home: Wrapper(),
+        initialRoute: "/",
+        onGenerateRoute: RouteGenerator.generateRoute,
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:practicefirebase/models/brew.dart';
 import 'package:practicefirebase/screens/home/brew_list.dart';
 import 'package:practicefirebase/screens/home/settings_form.dart';
+import 'package:practicefirebase/screens/secondpage/secondpage.dart';
 import 'package:practicefirebase/services/auth.dart';
 import 'package:practicefirebase/services/firestoredb.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +37,17 @@ class Home extends StatelessWidget {
           elevation: 0.0,
           actions: [
             IconButton(
+              onPressed: () {
+                // Navigator.of(context).push(MaterialPageRoute(
+                //   builder: (context) => SecondPage(data: "Testing",),
+                // ));
+                Navigator.of(context)
+                    // .pushNamed("/test", arguments: "Testing moto");
+                    .pushNamed("/second", arguments: 123);
+              },
+              icon: const Icon(Icons.pages),
+            ),
+            IconButton(
               onPressed: () => _showSettingsPanel(),
               icon: const Icon(Icons.settings),
             ),
@@ -50,9 +62,8 @@ class Home extends StatelessWidget {
         body: Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
-              image: AssetImage("assets/coffee_bg.png"),
-              fit: BoxFit.cover
-            )),
+                    image: AssetImage("assets/coffee_bg.png"),
+                    fit: BoxFit.cover)),
             child: BrewList()),
       ),
     );
