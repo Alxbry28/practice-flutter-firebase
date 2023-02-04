@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:practicefirebase/models/user.dart';
 import 'package:practicefirebase/screens/auth/authenticate.dart';
@@ -10,18 +11,23 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
-    print("wrapper: ${user}");
+     
+
+
+    // print("wrapper: ${user}");
     //Return home or auth widget
+  
+  
 
     if (user == null) {
       return Authenticate();
     } else {
-       return Home();
-      // if (user.isEmailVerified!) {
-      //   return Home();
-      // } else {
-      //   return Authenticate();
-      // }
+      //  return Home();
+      if (user.isEmailVerified!) {
+        return Home();
+      } else {
+        return Authenticate();
+      }
     }
   }
 }

@@ -27,7 +27,6 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    // return ? : ;
 
     return loading ? Loading() : Scaffold(
       backgroundColor: Colors.brown[100],
@@ -103,6 +102,8 @@ class _SignInState extends State<SignIn> {
                         // _formKey.currentState!.save();
                         dynamic result = await _authService
                             .signInWithEmailAndPassword(email!, password!);
+
+                        print(result);
 
                         if (result == null) {
                           setState(() {
