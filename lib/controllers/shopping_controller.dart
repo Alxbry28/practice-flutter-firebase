@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
+import 'package:practicefirebase/controllers/cart_controller.dart';
 import 'package:practicefirebase/models/product.dart';
 
 class ShoppingController extends GetxController {
   RxList<Product> products = <Product>[].obs;
+ 
 
   @override
   void onInit() {

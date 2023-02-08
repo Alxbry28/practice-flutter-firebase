@@ -45,6 +45,10 @@ class ShoppingPage extends StatelessWidget {
                                   style: const TextStyle(fontSize: 24)),
                             ],
                           ),
+                          Obx(
+                            () => Text(
+                                "Qty: ${cartController.cartItems.where((p0) => p0.id == controller.products[index].id).length}"),
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
