@@ -45,15 +45,33 @@ class ShoppingPage extends StatelessWidget {
                                   style: const TextStyle(fontSize: 24)),
                             ],
                           ),
-                          ElevatedButton(
-                            onPressed: () {
-                              cartController
-                                  .addToCart(controller.products[index]);
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue,
-                                textStyle: const TextStyle(color: Colors.white)),
-                            child: const Text('Add to Cart'),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  cartController
+                                      .addToCart(controller.products[index]);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blue,
+                                    textStyle:
+                                        const TextStyle(color: Colors.white)),
+                                child: const Text('Add to Cart'),
+                              ),
+                              const SizedBox(width: 10),
+                              ElevatedButton(
+                                onPressed: () {
+                                  cartController
+                                      .removeToCart(controller.products[index]);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.red,
+                                    textStyle:
+                                        const TextStyle(color: Colors.white)),
+                                child: const Text('Remove'),
+                              ),
+                            ],
                           ),
                           Obx(() => IconButton(
                                 icon: controller
@@ -74,9 +92,28 @@ class ShoppingPage extends StatelessWidget {
               );
             }),
           ),
-          Text("Total amount: "),
+          GetX<CartController>(builder: (cartController) {
+            return Text(
+              "Total amount: \$ ${cartController.totalPrice}",
+              style: TextStyle(color: Colors.white, fontSize: 24),
+            );
+          }),
           SizedBox(height: 100),
         ]),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        backgroundColor: Colors.amber,
+        icon: Icon(
+          Icons.add_shopping_cart_rounded,
+          color: Colors.black,
+        ),
+        label: GetX<CartController>(builder: (controller) {
+          return Text(
+            controller.count.toString(),
+            style: TextStyle(color: Colors.black, fontSize: 24),
+          );
+        }),
       ),
     );
   }
