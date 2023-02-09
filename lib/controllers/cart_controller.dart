@@ -8,12 +8,17 @@ class CartController extends GetxController {
   double get totalPrice =>
       cartItems.fold<double>(0, (sum, item) => sum + item.price!);
 
+
+  double testAmount = 0.0;
   addToCart(Product product) {
     cartItems.add(product);
+    // testAmount = totalPrice;
+    // update();
   }
 
   removeToCart(Product product) {
     cartItems.remove(product);
-    
+    //  testAmount = totalPrice;
+    //  update();
   }
 }
