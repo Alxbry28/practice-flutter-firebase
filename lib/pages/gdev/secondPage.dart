@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:practicefirebase/pages/homepage.dart';
+import 'package:practicefirebase/pages/gdev/homepage.dart';
 
 class SecondPage extends StatelessWidget {
   const SecondPage({super.key});

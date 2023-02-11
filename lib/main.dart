@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:practicefirebase/pages/getBuilder.dart';
-import 'package:practicefirebase/pages/getxobxpage.dart';
-import 'package:practicefirebase/pages/homepage.dart';
-import 'package:practicefirebase/pages/secondPage.dart';
-import 'package:practicefirebase/pages/snackPage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:practicefirebase/pages/gdev/getBuilder.dart';
+import 'package:practicefirebase/pages/gdev/getxobxpage.dart';
+import 'package:practicefirebase/pages/gdev/homepage.dart';
+import 'package:practicefirebase/pages/gdev/secondPage.dart';
+import 'package:practicefirebase/pages/gdev/snackPage.dart';
+import 'package:practicefirebase/pages/petra/home.dart';
 
-void main() {
+void main() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -21,14 +25,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
-      getPages: [
-        GetPage(name: "/", page: () => MyHomePage()),
-        GetPage(name: "/snackPage", page: () => SnackPage()),
-        GetPage(name: "/secondPage", page: () => SecondPage()),
-        GetPage(name: "/getx", page: () => RxPage()),
-        GetPage(name: "/getBuilderPage", page: () => GetBuilderPage()),
-      ],
+      home: Home(),
+      // getPages: [
+      //   GetPage(name: "/", page: () => MyHomePage()),
+      //   GetPage(name: "/snackPage", page: () => SnackPage()),
+      //   GetPage(name: "/secondPage", page: () => SecondPage()),
+      //   GetPage(name: "/getx", page: () => RxPage()),
+      //   GetPage(name: "/getBuilderPage", page: () => GetBuilderPage()),
+      // ],
       // home: SnackPage(),
     );
   }

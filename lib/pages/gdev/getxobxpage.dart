@@ -4,7 +4,8 @@ import 'package:practicefirebase/controllers/countController.dart';
 import 'package:practicefirebase/controllers/valueController.dart';
 
 class RxPage extends StatelessWidget {
-  const RxPage({super.key});
+  // const RxPage({super.key});
+   final valueController = Get.put(ValueController());
 
   @override
   Widget build(BuildContext context) {

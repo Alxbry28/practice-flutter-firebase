@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:practicefirebase/pages/getBuilder.dart';
-import 'package:practicefirebase/pages/secondPage.dart';
-import 'package:practicefirebase/pages/snackPage.dart';
+import 'package:practicefirebase/pages/gdev/getBuilder.dart';
+import 'package:practicefirebase/pages/gdev/secondPage.dart';
+import 'package:practicefirebase/pages/gdev/snackPage.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
