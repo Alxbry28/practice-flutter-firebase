@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:practicefirebase/pages/getBuilder.dart';
 import 'package:practicefirebase/pages/secondPage.dart';
 import 'package:practicefirebase/pages/snackPage.dart';
 
@@ -61,7 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Get.to(GetBuilderPage());
+            },
             child: Container(
               margin: EdgeInsets.all(6),
               padding: EdgeInsets.all(6),
@@ -75,7 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Get.toNamed("/getx");
+            },
             child: Container(
               margin: EdgeInsets.all(6),
               padding: EdgeInsets.all(6),
