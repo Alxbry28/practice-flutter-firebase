@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:practicefirebase/pages/getBuilder.dart';
+import 'package:practicefirebase/pages/getxobxpage.dart';
 import 'package:practicefirebase/pages/homepage.dart';
+import 'package:practicefirebase/pages/secondPage.dart';
 import 'package:practicefirebase/pages/snackPage.dart';
 
 void main() {
@@ -19,6 +22,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(),
+      getPages: [
+        GetPage(name: "/", page: () => MyHomePage()),
+        GetPage(name: "/snackPage", page: () => SnackPage()),
+        GetPage(name: "/secondPage", page: () => SecondPage()),
+        GetPage(name: "/getx", page: () => RxPage()),
+        GetPage(name: "/getBuilderPage", page: () => GetBuilderPage()),
+      ],
       // home: SnackPage(),
     );
   }

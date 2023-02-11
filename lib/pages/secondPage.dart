@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:practicefirebase/pages/homepage.dart';
 
 class SecondPage extends StatelessWidget {
   const SecondPage({super.key});
@@ -8,6 +10,19 @@ class SecondPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Navigation | Send Data"),
+      ),
+      body: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(Get.arguments.toString()),
+          ElevatedButton(
+              onPressed: () {
+                // Get.offAll(MyHomePage());
+                Get.offAllNamed("/");
+              },
+              child: Text("Go to Home Page"))
+        ],
       ),
     );
   }

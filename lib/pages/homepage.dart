@@ -45,7 +45,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           GestureDetector(
             onTap: () {
-                 Get.to(SecondPage());
+                //  Get.to(SecondPage(),arguments: "Hello from the home page");
+                 Get.toNamed("/secondPage",arguments: "Hello from the home page");
             },
             child: Container(
               margin: EdgeInsets.all(6),
