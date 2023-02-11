@@ -7,10 +7,13 @@ import 'package:practicefirebase/pages/gdev/homepage.dart';
 import 'package:practicefirebase/pages/gdev/secondPage.dart';
 import 'package:practicefirebase/pages/gdev/snackPage.dart';
 import 'package:practicefirebase/pages/petra/home.dart';
+import 'package:practicefirebase/pages/petra/screens/fourth.dart';
+import 'package:practicefirebase/pages/petra/screens/second.dart';
+import 'package:practicefirebase/pages/petra/screens/third.dart';
 
 void main() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -33,6 +36,12 @@ class MyApp extends StatelessWidget {
       //   GetPage(name: "/getx", page: () => RxPage()),
       //   GetPage(name: "/getBuilderPage", page: () => GetBuilderPage()),
       // ],
+      getPages: [
+        GetPage(name: "/", page: () => Home()),
+        GetPage(name: "/second", page: () => Second(), transition: Transition.fadeIn),
+        GetPage(name: "/third", page: () => Third(), transition: Transition.zoom),
+        GetPage(name: "/fourth", page: () => Fourth()),
+      ],
       // home: SnackPage(),
     );
   }
