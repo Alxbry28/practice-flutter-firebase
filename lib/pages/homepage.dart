@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:practicefirebase/pages/secondPage.dart';
+import 'package:practicefirebase/pages/snackPage.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -17,10 +20,74 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Text(title),
+      body: GridView.count(
+        padding: EdgeInsets.all(6),
+        crossAxisCount: 2,
+        children: [
+          GestureDetector(
+            onTap: () {
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => const SnackPage()));
+
+              Get.to(SnackPage());
+            },
+            child: Container(
+              margin: const EdgeInsets.all(6),
+              padding: const EdgeInsets.all(6),
+              color: Colors.blue,
+              child: const Center(
+                child: Text(
+                  "SnackBar, Dialog, and Bottom Sheet",
+                  style: TextStyle(color: Colors.white, fontSize: 23),
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+                 Get.to(SecondPage());
+            },
+            child: Container(
+              margin: EdgeInsets.all(6),
+              padding: EdgeInsets.all(6),
+              color: Colors.red,
+              child: Center(
+                child: Text(
+                  "Navigation | Send data to other screen",
+                  style: TextStyle(color: Colors.white, fontSize: 23),
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              margin: EdgeInsets.all(6),
+              padding: EdgeInsets.all(6),
+              color: Colors.amber[600],
+              child: const Center(
+                child: Text(
+                  "State Management | GetBuilder",
+                  style: TextStyle(color: Colors.white, fontSize: 25),
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              margin: EdgeInsets.all(6),
+              padding: EdgeInsets.all(6),
+              color: Colors.green,
+              child: const Center(
+                child: Text(
+                  "State Managment | Getx & Obx",
+                  style: TextStyle(color: Colors.white, fontSize: 25),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
