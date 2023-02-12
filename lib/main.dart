@@ -10,6 +10,7 @@ import 'package:practicefirebase/pages/petra/home.dart';
 import 'package:practicefirebase/pages/petra/screens/fourth.dart';
 import 'package:practicefirebase/pages/petra/screens/second.dart';
 import 'package:practicefirebase/pages/petra/screens/third.dart';
+import 'package:practicefirebase/pages/petra/state_management/first.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Home(),
+      home: FirstPage(),
       // getPages: [
       //   GetPage(name: "/", page: () => MyHomePage()),
       //   GetPage(name: "/snackPage", page: () => SnackPage()),
