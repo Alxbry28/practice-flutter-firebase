@@ -6,6 +6,6 @@ class AuthController extends GetxController {
     late Rx<User?> _firebaseUser;
     
     
-
+  
 
 }
